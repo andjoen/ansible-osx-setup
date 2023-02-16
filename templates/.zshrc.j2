@@ -2,11 +2,6 @@
 # instead make changes to ~/.zshrc.personal which is loaded after this file
 
 # Setup some standard paths
-export ANDROID_HOME=~/Library/Android/sdk
-export PATH=${PATH}:${ANDROID_HOME}/tools
-export PATH=${PATH}:${ANDROID_HOME}/platform-tools
-export PATH=/usr/local/opt/imagemagick@6/bin:${PATH}
-
 export optflags="-Wno-error=implicit-function-declaration"
 export LDFLAGS="-L/opt/homebrew/opt/libffi/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/libffi/include"
@@ -18,7 +13,7 @@ export PKG_CONFIG_PATH="${PKG_CONFIG_PATH} /opt/homebrew/opt/zlib/lib/pkgconfig"
 # ZSH setup
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
-plugins=(git kubectl)
+plugins=(git kubectl fzf docker docker-compose)
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_DISABLE_COMPFIX=true
 
@@ -33,6 +28,28 @@ source $ZSH/oh-my-zsh.sh
 # Most ZSH config e.g. aliases etc goes here
 if [ -f ~/.zshrc.personal.after ]; then . ~/.zshrc.personal.after; fi
 
-# Load asdf
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
+# Shell
+alias lla='ls -la'
+alias llat='ls -lat'
+alias nof='find . -type f | wc -l'
+alias flushdns='dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+
+# Git
+alias grss='git reset --soft HEAD~1'
+
+# Docker
+alias dc='docker-compose'
+alias dc-restart='docker-compose down && docker-compose up -d --build'
+alias docker-nuke='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q) && docker system prune -a -f --volumes'
+function dcrb { docker-compose stop "$1" && docker-compose rm -f "$1" && docker-compose build --no-cache "$1" && docker-compose up -d "$1"; }
+function docker-down { docker stop "$1" && docker rm -f "$1"; }
+function docker-volume-rm-anon { docker volume ls | awk '{if (length($2)==64 && $2!~/-/ && $2!~/_/) print $2}' | xargs -L1 docker volume rm }
+
+# Kubernetes
+alias k='kubectl'
+alias kg='kubectl get'
+alias kgn='kubectl get nodes'
+alias kgp='kubectl get pods'
+alias kcuc='kubectl config use-context'
+alias keit='kubectl exec -it'
+function kexec { kubectl exec -it -n $1 $(kubectl get pods -n $1 | grep $2 | awk '{print $1}') -- bash; }
