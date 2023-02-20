@@ -20,6 +20,7 @@
           fishtown-analytics/dbt,
           heroku/brew,
           homebrew/cask-versions,
+          homebrew/cask-fonts,
           thoughtbot/formulae,
           weaveworks/tap,
         ]
