@@ -175,6 +175,9 @@
         - wordpresstoolbox.wordpress-toolbox
         - xdebug.php-debug
         - zhuangtongfa.material-theme
+        
+    - name: Install default node.js version
+      shell: nvm install v18
 
     - name: Install global npm packages
       shell: npm install -g {{ item }}
