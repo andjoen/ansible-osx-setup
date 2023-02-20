@@ -31,6 +31,7 @@
       with_items:
         - alfred
         - brave-browser
+        - citrix-workspace
         - cyberduck
         - discord
         - docker
