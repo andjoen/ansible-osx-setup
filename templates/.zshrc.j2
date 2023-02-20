@@ -17,6 +17,11 @@ plugins=(git kubectl fzf docker docker-compose)
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 ZSH_DISABLE_COMPFIX=true
 
+# NVM setup
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
 # Load personal pre oh-my-zsh init config which should be stored in ~/.zshrc.personal.before
 # E.g. setting ZSH theme etc
 if [ -f ~/.zshrc.personal.before ]; then . ~/.zshrc.personal.before; fi
