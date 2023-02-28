@@ -102,6 +102,7 @@
         - 497799835 # xcode
         - 441258766 # magnet
         - 1291898086 # toggl
+        - 1295203466 # ms remote desktop
 
     - name: Get the path to ZSH
       become: false
